@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temporelle — Horlogerie de Luxe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #110D06;
+    --panel: #1B150C;
+    --ivory: #ece6d8;
+    --ivory-dim: #b9b2a2;
+    --gold: #B78E4A;
+    --gold-dim: #7F5C29;
+    --emerald: #261E11;
+    --emerald-bright: #9F7636;
+    --ink: #110D06;
+    --ink-dim: #6b6459;
+    --line-dark: rgba(183,142,74,0.22);
+    --line-light: rgba(17,13,6,0.14);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--black);
+    color: var(--ivory);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+  a{ color: inherit; text-decoration: none; }
+  img,svg{ display:block; max-width:100%; }
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+  /* prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position: fixed; top:0; left:0; right:0; z-index: 50;
+    background: rgba(17,13,6,0.7);
+    backdrop-filter: blur(10px);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto; padding: 22px 32px;
+    display:grid; grid-template-columns: 1fr auto 1fr; align-items:center;
+  }
+  .brand-mark{ display:flex; align-items:center; gap:12px; justify-self:center; }
+  .brand-mark span{ font-family:'Cormorant Garamond', serif; font-size: 21px; letter-spacing: 0.08em; color: var(--ivory); }
+  .nav-menu-btn{
+    justify-self:start;
+    display:flex; align-items:center; gap:10px;
+    font-size: 12.5px; letter-spacing: 0.04em; color: var(--ivory-dim);
+    background:none; border:none; cursor:pointer; font-family:'Inter',sans-serif;
+    padding: 6px 0;
+  }
+  .nav-menu-btn:hover{ color: var(--gold); }
+  .nav-menu-btn .bars{ display:flex; flex-direction:column; gap:4px; }
+  .nav-menu-btn .bars i{ width:18px; height:1px; background: currentColor; display:block; }
+  .nav-action{ justify-self:end; color: var(--gold); display:flex; align-items:center; }
+  .nav-action:hover{ color: var(--ivory); }
+
+  .nav-panel{
+    position: fixed; inset:0; z-index: 49;
+    background: var(--black);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none;
+    transition: opacity .35s ease;
+  }
+  .nav-panel.is-open{ opacity:1; pointer-events:auto; }
+  .nav-panel nav{ display:flex; flex-direction:column; gap: 30px; text-align:center; }
+  .nav-panel nav a{ font-family:'Cormorant Garamond', serif; font-size: clamp(1.8rem,4vw,2.6rem); color: var(--ivory-dim); }
+  .nav-panel nav a:hover{ color: var(--gold); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    padding-top: 88px;
+    overflow: hidden;
+  }
+  .hero{
+    position: relative;
+    min-height: 100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding-top: 88px;
+    overflow: hidden;
+    text-align:center;
+  }
+  .hero-bg{
+    position:absolute; inset:0; z-index:0;
+    background: #110D06;
+  }
+  .hero-bg video{
+    position:absolute; inset:0;
+    width:100%; height:120%;
+    object-fit: cover;
+    opacity: 0.62;
+    transform: translateY(var(--py, 0px));
+    will-change: transform;
+  }
+  .hero-bg::after{
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(70% 60% at 50% 46%, rgba(17,13,6,0.18) 0%, rgba(17,13,6,0.66) 60%, rgba(17,13,6,0.92) 100%),
+      linear-gradient(180deg, rgba(17,13,6,0.55) 0%, rgba(17,13,6,0.15) 24%, rgba(17,13,6,0.15) 70%, rgba(17,13,6,0.85) 100%);
+  }
+  .hero-copy{ position: relative; z-index:2; padding: 40px 32px; max-width: 780px; margin:0 auto; display:flex; flex-direction:column; align-items:center; }
+  .hero-eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size: 13px; color: var(--gold); margin-bottom: 30px;
+    opacity:0; animation: rise .9s .15s ease forwards;
+  }
+  .hero-eyebrow .dash{ width:28px; height:1px; background: var(--gold-dim); }
+  .hero h1{
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    line-height: 1.1;
+    color: var(--ivory);
+    max-width: 14ch;
+    opacity:0; animation: rise 1s .3s ease forwards;
+  }
+  .hero h1 em{ font-style: italic; color: var(--gold); }
+  .hero p.lead{
+    margin-top: 26px;
+    max-width: 46ch;
+    color: var(--ivory-dim);
+    font-size: 17px;
+    opacity:0; animation: rise 1s .45s ease forwards;
+  }
+  .hero-actions{
+    margin-top: 42px;
+    display:flex; align-items:center; justify-content:center; gap: 28px;
+    opacity:0; animation: rise 1s .6s ease forwards;
+  }
+  .btn-primary{
+    background: var(--gold);
+    color: var(--black);
+    padding: 16px 34px;
+    font-size: 14.5px;
+    font-weight: 500;
+    display:inline-flex; align-items:center; gap:10px;
+    transition: transform .25s ease, background .25s ease;
+  }
+  .btn-primary:hover{ background:#D0AD6C; transform: translateY(-2px); }
+  .btn-secondary{ font-size: 14px; color: var(--ivory-dim); border-bottom: 1px solid var(--line-dark); padding-bottom: 3px; }
+  .btn-secondary:hover{ color: var(--gold); }
+
+  @keyframes rise{ from{ opacity:0; transform: translateY(16px);} to{ opacity:1; transform: translateY(0);} }
+
+  .hero-foot{
+    position:absolute; bottom: 34px; left:0; right:0;
+    display:flex; justify-content:center;
+    z-index:2;
+  }
+  .hero-foot .wrap{ display:flex; justify-content:space-between; align-items:center; width:100%; }
+  .scroll-hint{ font-size:12px; color: var(--ivory-dim); display:flex; align-items:center; gap:10px; }
+  .scroll-hint .line{ width:1px; height:34px; background: linear-gradient(var(--gold), transparent); }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 160px 0; }
+  .section-dark{ background: var(--black); }
+  .section-panel{ background: var(--panel); border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark); }
+  .section-ivory{ background: var(--ivory); color: var(--ink); }
+
+  /* ---------- SECTION STACKING (scroll integration) ---------- */
+  body > section, body > footer{
+    position: sticky;
+    top: 0;
+  }
+  body > section:nth-of-type(1){ z-index: 1; }
+  body > section:nth-of-type(2){ z-index: 2; }
+  body > section:nth-of-type(3){ z-index: 3; }
+  body > section:nth-of-type(4){ z-index: 4; }
+  body > section:nth-of-type(5){ z-index: 5; }
+  body > section:nth-of-type(6){ z-index: 6; }
+  body > footer{ z-index: 7; }
+  .hero{ background: var(--black); }
+  body > section::after, body > footer::after{
+    content:'';
+    position:absolute; left:0; right:0; top:0; height:64px;
+    z-index:2;
+    background: linear-gradient(180deg, rgba(0,0,0,0.22), transparent);
+    pointer-events:none;
+  }
+  @media (prefers-reduced-motion: reduce){
+    body > section, body > footer{ position: static; }
+  }
+  /* #marcas is much taller than a viewport (4 large brand panels) - sticking it
+     like the others would freeze the page for a huge scroll distance, so it
+     scrolls normally while still painting above the sticky section before it. */
+  #marcas{ position: relative; }
+
+  .kicker{ font-size: 13px; color: var(--gold); margin-bottom: 18px; display:flex; align-items:center; gap:10px; }
+  .section-ivory .kicker{ color: var(--emerald-bright); }
+  .kicker .dash{ width:28px; height:1px; background: currentColor; opacity:0.5; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid; grid-template-columns: 0.85fr 1.15fr; gap: 80px; align-items: start;
+  }
+  .about-grid h2{ font-size: clamp(2rem, 3.4vw, 2.8rem); line-height:1.18; }
+  .about-body p{ color: var(--ink-dim); font-size: 16px; max-width: 58ch; }
+  .about-body p + p{ margin-top: 18px; }
+
+  .kinetic-intro .kw{
+    display:inline-block;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    color: var(--ink-dim);
+    opacity:0;
+    transition: opacity .8s ease, color .6s ease, text-shadow .6s ease;
+  }
+  .gear-slot{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:20px; height:20px; margin: 0 3px -4px 0;
+    opacity:0;
+    transition: opacity .5s ease, transform .9s cubic-bezier(0.22,1,0.36,1);
+  }
+  .gear-slot-left{ transform: translateX(-34px) rotate(-40deg); }
+  .gear-slot-right{ transform: translateX(34px) rotate(40deg); }
+  .gear-slot svg{
+    width:100%; height:100%; color: var(--gold-dim);
+    fill: currentColor; stroke: currentColor;
+    animation: gear-spin 7s linear infinite;
+  }
+  @keyframes gear-spin{ to{ transform: rotate(360deg); } }
+
+  .kinetic-intro.is-visible .kw-left{ opacity:1; color: var(--emerald-bright); transition-delay: .15s; }
+  .kinetic-intro.is-visible .kw-right{ opacity:1; color: var(--emerald-bright); transition-delay: .5s; }
+  .kinetic-intro.is-visible .gear-slot-left{ opacity:1; transform: translateX(0) rotate(0deg); transition-delay: .15s; }
+  .kinetic-intro.is-visible .gear-slot-right{ opacity:1; transform: translateX(0) rotate(0deg); transition-delay: .5s; }
+
+  .kinetic-intro .kw-merge{
+    position:relative;
+    transform: scale(0.82);
+    transition: opacity .5s ease, transform .6s cubic-bezier(0.34,1.56,0.64,1), color .5s ease, text-shadow .5s ease;
+    transition-delay: .95s;
+  }
+  .kinetic-intro .kw-merge::after{
+    content:'';
+    position:absolute; left:50%; top:50%; width:10px; height:10px;
+    transform: translate(-50%,-50%) scale(0);
+    border-radius:50%;
+    border: 1px solid rgba(183,142,74,0.6);
+    opacity:0;
+  }
+  .kinetic-intro.is-visible .kw-merge{
+    opacity:1; transform: scale(1);
+    color: var(--gold-dim);
+    text-shadow: 0 0 18px rgba(183,142,74,0.45);
+  }
+  .kinetic-intro.is-visible .kw-merge::after{
+    animation: merge-pulse 1s ease-out .95s;
+  }
+  @keyframes merge-pulse{
+    0%{ opacity:0.9; transform: translate(-50%,-50%) scale(0.4); }
+    100%{ opacity:0; transform: translate(-50%,-50%) scale(9); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .kinetic-intro .kw, .gear-slot, .kinetic-intro .kw-merge{ opacity:1 !important; transform:none !important; transition:none !important; }
+    .gear-slot svg{ animation:none; }
+  }
+  .pillars{ margin-top: 44px; display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .pillar{
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line-light);
+    border-radius: 14px;
+    background: #f6f2e8;
+    padding: 26px 26px 24px;
+    transform: perspective(900px) rotateX(0deg) rotateY(0deg);
+    transition: border-color .3s ease, box-shadow .4s ease;
+    will-change: transform;
+  }
+  .pillar:hover{
+    border-color: rgba(183,142,74,0.45);
+    box-shadow: 0 18px 34px -18px rgba(23,20,16,0.28);
+  }
+  .pillar .glare{
+    position:absolute; inset:0;
+    opacity:0; transition: opacity .3s ease;
+    background: radial-gradient(circle at 50% 50%, rgba(183,142,74,0.28), transparent 60%);
+    pointer-events:none;
+  }
+  .pillar:hover .glare{ opacity:1; }
+  .pillar h3{ font-family:'Cormorant Garamond', serif; font-weight:500; font-size: 20px; color: var(--ink); margin-bottom: 8px; position:relative; }
+  .pillar p{ font-size: 14.5px; color: var(--ink-dim); margin:0; position:relative; }
+
+  @media (max-width: 900px){
+    .about-grid{ grid-template-columns: 1fr; }
+    .pillars{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- BRANDS (full-bleed editorial panels) ---------- */
+  .brands-intro{ padding-bottom: 70px; }
+  .brands-intro h2{ font-size: clamp(2rem,3.4vw,2.8rem); max-width: 16ch; }
+  .brands-intro p{ margin-top:18px; color: var(--ivory-dim); max-width: 46ch; font-size: 15px; }
+
+  .brand-panel{
+    display:grid; grid-template-columns: 1fr 1fr;
+    align-items:center;
+    min-height: 62vh;
+  }
+  .brand-panel:nth-child(even){ direction: rtl; }
+  .brand-panel:nth-child(even) > *{ direction: ltr; }
+  .brand-visual{ display:flex; align-items:center; justify-content:center; padding: 40px; }
+  .brand-visual svg{ width:100%; max-width: 300px; }
+  .brand-photo{
+    width:100%; max-width: 460px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: 50% 50%;
+    border-radius: 3px;
+    box-shadow: 0 30px 60px -25px rgba(0,0,0,0.6);
+  }
+  .brand-copy{ padding: 40px 32px; }
+  .brand-copy .num{ font-size:13px; color: var(--gold-dim); letter-spacing:0.08em; }
+  .brand-copy .name{ font-family:'Cormorant Garamond', serif; font-size: clamp(2.2rem,4vw,3.4rem); color: var(--ivory); margin-top:10px; }
+  .brand-copy .name-logo{ height: 220px; width:auto; margin: 6px 0; display:block; }
+  .brand-copy .tag{ margin-top: 14px; font-size: 15px; color: var(--ivory-dim); max-width: 40ch; }
+  .brand-photo--watch{
+    max-width: 320px; width:100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    box-shadow:none; border-radius:0;
+  }
+  .brand-photo-card{
+    background: #f5f1e8; border-radius: 6px; padding: 26px;
+    box-shadow: 0 30px 60px -25px rgba(0,0,0,0.6);
+    display:inline-block;
+  }
+  .brand-photo-card img{ display:block; width:100%; max-width: 220px; height:auto; }
+  .brand-copy .name-logo--wide{ height: 220px; }
+
+  .brand-panel--bg{
+    position: relative;
+    background: #110D06;
+    isolation: isolate;
+  }
+  .brand-panel--bg::before{
+    content:'';
+    position:absolute; inset:0; z-index:0;
+    background: var(--panel-bg) center 30% / cover no-repeat;
+    opacity: 0.55;
+  }
+  .brand-panel--bg::after{
+    content:'';
+    position:absolute; inset:0; z-index:0;
+    background: linear-gradient(180deg, rgba(17,13,6,0.55) 0%, rgba(17,13,6,0.2) 30%, rgba(17,13,6,0.75) 100%);
+  }
+  .brand-panel--bg .brand-visual,
+  .brand-panel--bg .brand-copy{ position:relative; z-index:1; }
+
+  .brand-panel + .brand-panel{ border-top: 1px solid var(--line-dark); }
+
+  .brand-panel--marquee{ grid-template-columns: 1fr; min-height:auto; padding: 80px 0 70px; }
+  .brand-panel--marquee .brand-copy{ text-align:center; padding: 0 32px; }
+  .brand-panel--marquee .brand-copy .num{ text-align:center; }
+  .brand-panel--marquee .brand-copy .tag{ margin-left:auto; margin-right:auto; }
+
+  .marquee{
+    position:relative; overflow:hidden; width:100%;
+    margin-top: 50px;
+  }
+  .marquee::before, .marquee::after{
+    content:''; position:absolute; top:0; bottom:0; width:100px; z-index:2; pointer-events:none;
+  }
+  .marquee::before{ left:0; background: linear-gradient(90deg, var(--black), transparent); }
+  .marquee::after{ right:0; background: linear-gradient(270deg, var(--black), transparent); }
+  .marquee-track{
+    display:flex; width:fit-content;
+    animation: marquee-scroll 26s linear infinite;
+  }
+  .marquee:hover .marquee-track{ animation-play-state: paused; }
+  @keyframes marquee-scroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  .marquee-item{
+    display:flex; align-items:center; justify-content:center;
+    padding: 0 48px;
+    border-right: 1px solid var(--line-dark);
+  }
+  .marquee-item span{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 27px; letter-spacing:0.03em;
+    color: var(--ivory-dim); white-space:nowrap;
+    transition: color .3s ease;
+  }
+  .marquee-item:hover span{ color: var(--gold); }
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{ animation: none; }
+  }
+  .brand-copy--shift{ margin-left: 14%; }
+  @media (max-width: 860px){ .brand-copy--shift{ margin-left:0; } }
+  .brand-panel--marquee{
+    grid-template-columns: 1fr; min-height:auto; padding: 70px 0 60px;
+    background:
+      radial-gradient(120% 160% at 50% 0%, rgba(127,92,41,0.45) 0%, rgba(17,13,6,0) 55%),
+      linear-gradient(180deg, rgba(183,142,74,0.07) 0%, transparent 35%);
+  }
+  .brand-panel--marquee .brand-copy{ text-align:center; padding-bottom: 0; }
+  .brand-panel--marquee .brand-copy .num{ display:block; }
+  .brand-panel--marquee .brand-copy .name{ font-size: clamp(1.6rem,2.6vw,2.2rem); }
+  .brand-panel--marquee .brand-copy .tag{ margin-left:auto; margin-right:auto; }
+
+  .marquee{
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 48px;
+  }
+  .marquee::before, .marquee::after{
+    content:''; position:absolute; top:0; bottom:0; width:100px; z-index:2; pointer-events:none;
+  }
+  .marquee::before{ left:0; background: linear-gradient(90deg, var(--black), transparent); }
+  .marquee::after{ right:0; background: linear-gradient(270deg, var(--black), transparent); }
+  .marquee-track{
+    display:flex; align-items:center;
+    width: fit-content;
+    animation: marquee-scroll 26s linear infinite;
+  }
+  .marquee:hover .marquee-track{ animation-play-state: paused; }
+  @keyframes marquee-scroll{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+  .marquee-item{
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    width: 260px; height: 130px;
+    margin: 0 30px;
+  }
+  .marquee-item img{
+    max-width: 100%; max-height: 100%; width:auto; height:auto;
+    filter: invert(1) brightness(1) opacity(0.65) drop-shadow(0 0 14px rgba(183,142,74,0.12));
+    transition: filter .35s ease, transform .35s ease;
+  }
+  .marquee-item:hover img{
+    filter: invert(1) brightness(1) opacity(1) drop-shadow(0 0 18px rgba(183,142,74,0.35));
+    transform: scale(1.06);
+  }
+  .marquee-item img.logo-light{ filter: opacity(0.65) drop-shadow(0 0 14px rgba(183,142,74,0.12)); }
+  .marquee-item:hover img.logo-light{ filter: opacity(1) drop-shadow(0 0 18px rgba(183,142,74,0.35)); }
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{ animation: none; flex-wrap: wrap; justify-content:center; }
+  }
+
+
+  .brand-panel--full{ display:block; padding: 0; min-height: auto; }
+  .brand-panel--full .brand-visual{ padding:0; width:100%; }
+  .brand-panel--full .brand-photo{
+    width:100%; max-width:none;
+    aspect-ratio: 21 / 9;
+    border-radius:0; box-shadow:none;
+  }
+  .brand-panel--full .brand-copy{ padding: 40px 32px 56px; }
+  @media (max-width: 860px){
+    .brand-panel--full .brand-photo{ aspect-ratio: 4 / 3; }
+  }
+
+  @media (max-width: 860px){
+    .brand-panel, .brand-panel:nth-child(even){ grid-template-columns: 1fr; direction:ltr; min-height:auto; padding: 50px 0; }
+    .brand-visual{ padding: 0 0 20px; }
+    .brand-copy .name-logo{ height: 130px; }
+    .brand-copy .name-logo--wide{ height: 130px; }
+    .brand-photo-card{ padding: 18px; }
+    .brand-photo-card img{ max-width: 170px; }
+  }
+
+  /* ---------- INTERLUDE / QUOTE ---------- */
+  .interlude{
+    padding: 160px 0;
+    background: var(--black);
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+  .interlude-bg{ position:absolute; inset:0; z-index:0; }
+  .interlude-bg video{
+    position:absolute; inset:0;
+    width:100%; height:120%;
+    object-fit: cover;
+    object-position: center 35%;
+    opacity: 0.4;
+    transform: translateY(var(--py, 0px));
+    will-change: transform;
+  }
+  .interlude-bg::after{
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(60% 70% at 50% 50%, rgba(17,13,6,0.35) 0%, rgba(17,13,6,0.82) 68%, rgba(17,13,6,0.95) 100%);
+  }
+  .interlude::before{ content: none; }
+  .interlude-inner{ max-width: 700px; margin: 0 auto; position:relative; z-index:2; }
+  .interlude p.quote{
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+    line-height: 1.32;
+    color: var(--ivory);
+  }
+  .interlude p.sub{
+    margin-top: 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--ivory-dim);
+    letter-spacing: 0.02em;
+  }
+  .interlude p.sub strong{ color: var(--gold); font-weight: 500; }
+  @media (max-width: 760px){
+    .brand-row{ grid-template-columns: repeat(2,1fr); }
+    .brand-cell:nth-child(2n){ border-right:none; }
+    .brand-cell:nth-child(4n){ border-right: 1px solid var(--line-dark); }
+  }
+
+  /* ---------- PROCESS / HORIZONTAL TIMELINE ---------- */
+  .timeline{ margin-top: 56px; position: relative; }
+  .timeline-line{
+    position:absolute; top:7px; left:0; right:0; height:1px;
+    background: var(--line-light);
+    overflow:hidden;
+  }
+  .timeline-line-fill{
+    position:absolute; top:0; left:0; height:100%; width:0%;
+    background: var(--gold);
+    transition: width 1.6s cubic-bezier(0.65,0,0.35,1);
+  }
+  .timeline.is-visible .timeline-line-fill{ width:100%; }
+  .timeline-row{
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px; position:relative;
+  }
+  .timeline-col{ display:flex; flex-direction:column; align-items:flex-start; }
+  .timeline-dot{
+    width:15px; height:15px; border-radius:50%;
+    background: var(--gold-dim);
+    box-shadow: 0 0 0 5px rgba(183,142,74,0);
+    position:relative; margin-bottom: 26px;
+    transform: scale(0.7);
+    opacity: 0.5;
+    transition: transform .5s cubic-bezier(0.34,1.56,0.64,1), opacity .5s ease, box-shadow .5s ease, background .5s ease;
+  }
+  .timeline.is-visible .timeline-col:nth-child(1) .timeline-dot{ transition-delay: .05s; }
+  .timeline.is-visible .timeline-col:nth-child(2) .timeline-dot{ transition-delay: .55s; }
+  .timeline.is-visible .timeline-col:nth-child(3) .timeline-dot{ transition-delay: 1.05s; }
+  .timeline.is-visible .timeline-col:nth-child(4) .timeline-dot{ transition-delay: 1.55s; }
+  .timeline.is-visible .timeline-dot{
+    background: var(--gold);
+    box-shadow: 0 0 0 5px rgba(183,142,74,0.16), 0 0 18px rgba(183,142,74,0.55);
+    transform: scale(1);
+    opacity:1;
+  }
+  .timeline-dot::after{
+    content:''; position:absolute; inset:4px; border-radius:50%; background: var(--ivory);
+  }
+  .timeline-badge{
+    display:inline-block;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 11px; font-weight:600; letter-spacing:0.06em;
+    padding: 6px 14px; border-radius: 999px;
+    margin-bottom: 16px;
+    opacity:0; transform: translateY(8px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .timeline.is-visible .timeline-col:nth-child(1) .timeline-badge{ transition-delay: .25s; }
+  .timeline.is-visible .timeline-col:nth-child(2) .timeline-badge{ transition-delay: .75s; }
+  .timeline.is-visible .timeline-col:nth-child(3) .timeline-badge{ transition-delay: 1.25s; }
+  .timeline.is-visible .timeline-col:nth-child(4) .timeline-badge{ transition-delay: 1.75s; }
+  .timeline.is-visible .timeline-badge{ opacity:1; transform: translateY(0); }
+  .timeline-col h3{ font-size: 19px; color: var(--ink); margin-bottom: 8px; }
+  .timeline-col p{ font-size: 14px; line-height:1.5; color: var(--ink-dim); margin:0; max-width: 30ch; }
+
+  @media (max-width: 760px){
+    .timeline-row{ grid-template-columns: 1fr; gap: 44px; }
+    .timeline-line{ display:none; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .timeline-line-fill{ transition:none; width:100%; }
+    .timeline-dot{ transition:none; transform:scale(1); opacity:1; background:var(--gold); box-shadow: 0 0 0 5px rgba(183,142,74,0.16); }
+    .timeline-badge{ transition:none; opacity:1; transform:none; }
+  }
+
+  @media (max-width: 560px){
+    .step-item{ grid-template-columns: 44px 1fr; gap: 18px; }
+    .step-indicator{ width:44px; height:44px; }
+    .step-track .line{ top:44px; }
+  }
+
+  /* ---------- CINEMATIC CTA / CONTACT ---------- */
+  #contato{
+    position: relative !important;
+    top: auto !important;
+    padding: 0;
+    background: var(--black);
+    z-index: 7;
+  }
+
+  .cta-curtain{
+    min-height: 115vh;
+    position: relative;
+    z-index: 3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 80px 32px;
+    background:
+      radial-gradient(70% 60% at 50% 45%, rgba(38,30,17,0.17), transparent 68%),
+      var(--black);
+    border-bottom: 1px solid var(--line-dark);
+    box-shadow: 0 35px 80px rgba(0,0,0,.48);
+  }
+
+  .cta-curtain::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(to right, rgba(183,142,74,.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(183,142,74,.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 24%, #000 76%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 24%, #000 76%, transparent);
+    pointer-events:none;
+  }
+
+  .cta-curtain h2{
+    position:relative;
+    z-index:1;
+    max-width: 900px;
+    font-family:'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 7.4rem);
+    font-weight:500;
+    line-height:.98;
+    letter-spacing:-.02em;
+    color:var(--ivory);
+  }
+
+  .cta-curtain h2 em{
+    color:var(--gold);
+    font-weight:400;
+  }
+
+  .cta-reveal-wrapper{
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+  }
+
+  .cta-reveal{
+    position: fixed;
+    left:0; bottom:0;
+    width:100%; height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(159,118,54,.26) 0%, rgba(38,30,17,.10) 30%, transparent 62%),
+      #110D06;
+    color:var(--ivory);
+  }
+
+  .cta-reveal::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(to right, rgba(183,142,74,.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(183,142,74,.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+    pointer-events:none;
+  }
+
+  .cta-glow{
+    position:absolute;
+    left:50%; top:50%;
+    width:min(900px,86vw); height:min(520px,58vh);
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(183,142,74,.11) 0%, rgba(38,30,17,.14) 35%, transparent 70%);
+    filter:blur(55px);
+    animation:cta-breathe 7s ease-in-out infinite alternate;
+    pointer-events:none;
+  }
+
+  @keyframes cta-breathe{
+    from{ transform:translate(-50%,-50%) scale(.92); opacity:.58; }
+    to{ transform:translate(-50%,-50%) scale(1.08); opacity:1; }
+  }
+
+  .cta-reveal-inner{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding: 40px 24px;
+    opacity:0;
+    transform:translateY(42px) scale(.98);
+    transition: opacity .85s ease, transform .95s cubic-bezier(.16,1,.3,1);
+  }
+
+  .cta-reveal-wrapper.is-visible .cta-reveal-inner{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+
+  .cta-reveal h2{
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(3.2rem,7.5vw,7.8rem);
+    line-height:.96;
+    font-weight:500;
+    letter-spacing:-.035em;
+    margin:0 0 44px;
+    background:linear-gradient(180deg,#f3eddf 0%,rgba(236,230,216,.56) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 24px rgba(236,230,216,.08));
+  }
+
+  .cta-whatsapp{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    min-width: 245px;
+    padding:17px 30px;
+    border:1px solid rgba(183,142,74,.32);
+    border-radius:999px;
+    background:linear-gradient(145deg,rgba(236,230,216,.075),rgba(236,230,216,.025));
+    box-shadow:0 18px 45px rgba(0,0,0,.32), inset 0 1px 1px rgba(255,255,255,.08);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    color:var(--ivory);
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:.02em;
+    transition:border-color .3s ease, background .3s ease, box-shadow .3s ease;
+    will-change:transform;
+  }
+
+  .cta-whatsapp:hover{
+    border-color:rgba(183,142,74,.7);
+    background:linear-gradient(145deg,rgba(183,142,74,.16),rgba(236,230,216,.035));
+    box-shadow:0 22px 54px rgba(0,0,0,.42), 0 0 28px rgba(183,142,74,.08);
+  }
+
+  .cta-whatsapp svg{ width:18px; height:18px; }
+
+  @media (max-width: 760px){
+    .cta-curtain{ min-height:100vh; }
+    .cta-curtain h2{ font-size:clamp(2.8rem,14vw,5rem); }
+    .cta-reveal h2{ font-size:clamp(3rem,14vw,5.2rem); margin-bottom:34px; }
+    .cta-whatsapp{ min-width:220px; padding:16px 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .cta-glow{ animation:none; }
+    .cta-reveal-inner{ opacity:1; transform:none; transition:none; }
+  }
+
+  footer{
+    background: var(--black);
+    border-top: 1px solid var(--line-dark);
+    padding: 50px 0 34px;
+  }
+  .foot-grid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap: 30px; align-items:center; }
+  .foot-grid .brand-mark span{ font-size: 19px; }
+  .foot-links{ display:flex; gap: 28px; font-size: 13px; color: var(--ivory-dim); }
+  .foot-links a:hover{ color: var(--gold); }
+  .foot-note{ margin-top: 30px; font-size: 12.5px; color: var(--ink-dim); border-top: 1px solid var(--line-dark); padding-top: 22px; }
+
+  /* ---------- LOGOS TEMPORELLE ---------- */
+  .brand-seal{ height: 44px; width: auto; }
+  .foot-grid .brand-seal{ height: 56px; }
+  .hero-logo{ width: min(420px, 80vw); height: auto; margin-bottom: 26px; opacity:0; animation: rise .9s .05s ease forwards; }
+
+  ::selection{ background: var(--gold); color: var(--black); }
+
+  /* ---------- FUNDO DA ABERTURA DA SEÇÃO MARCAS ---------- */
+  #marcas{
+    padding-top: 0;
+  }
+
+  #marcas .brands-intro{
+    position: relative;
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    padding: 90px 0;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  #marcas .brands-intro::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    background:
+      linear-gradient(90deg,
+        rgba(17,13,6,1) 0%,
+        rgba(17,13,6,.97) 27%,
+        rgba(17,13,6,.70) 50%,
+        rgba(17,13,6,.28) 73%,
+        rgba(17,13,6,.10) 100%
+      ),
+      url('images/brands-dial-bg.png') center right / cover no-repeat;
+  }
+
+  #marcas .brands-intro::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background:
+      linear-gradient(180deg,
+        rgba(17,13,6,.30) 0%,
+        transparent 22%,
+        transparent 76%,
+        rgba(17,13,6,.45) 100%);
+    pointer-events:none;
+  }
+
+  #marcas .brands-intro > *{
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 860px){
+    #marcas .brands-intro{
+      min-height: 560px;
+      padding: 90px 0 80px;
+      align-items:flex-end;
+    }
+
+    #marcas .brands-intro::before{
+      background:
+        linear-gradient(180deg,
+          rgba(17,13,6,.16) 0%,
+          rgba(17,13,6,.42) 42%,
+          rgba(17,13,6,.94) 78%,
+          rgba(17,13,6,1) 100%
+        ),
+        url('images/brands-dial-bg.png') 68% center / cover no-repeat;
+    }
+  }
+
+
+  /* ---------- AJUSTE DE TIPOGRAFIA / LAYOUT DA ABERTURA DE MARCAS ---------- */
+  #marcas .brands-intro{
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+  }
+
+  #marcas .brands-intro .kicker{
+    margin-bottom: 22px;
+  }
+
+  #marcas .brands-intro h2{
+    max-width: 8.5ch;
+    font-size: clamp(3rem, 5.2vw, 5.4rem);
+    line-height: .98;
+    letter-spacing: -0.02em;
+  }
+
+  #marcas .brands-intro p{
+    max-width: 42ch;
+    margin-top: 28px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(236,230,216,.78);
+  }
+
+  @media (max-width: 860px){
+    #marcas .brands-intro{
+      justify-content: flex-end;
+      padding-bottom: 72px;
+    }
+
+    #marcas .brands-intro h2{
+      max-width: 9ch;
+      font-size: clamp(2.7rem, 12vw, 4.4rem);
+    }
+
+    #marcas .brands-intro p{
+      max-width: 34ch;
+      font-size: 15px;
+    }
+  }
+
+
+  
+
+
+  
+  /* A seção Sobre é maior que uma viewport. Ela não deve ficar sticky,
+     senão a próxima seção começa a cobrir os cards antes da leitura terminar. */
+  #sobre{
+    position: relative !important;
+    top: auto !important;
+    padding-bottom: 180px !important;
+    overflow: visible;
+  }
+
+  #sobre .pillars{
+    margin-bottom: 0 !important;
+  }
+
+  /* Garante altura confortável e conteúdo integral dentro de cada card */
+  #sobre .pillar{
+    min-height: 190px;
+    height: auto;
+    overflow: visible;
+  }
+
+  #sobre .pillar p{
+    overflow: visible;
+  }
+
+  @media (max-width: 900px){
+    #sobre{
+      padding-bottom: 130px !important;
+    }
+
+    #sobre .about-grid{
+      gap: 48px;
+    }
+
+    #sobre .pillars{
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    #sobre .pillar{
+      min-height: 0;
+      padding: 24px 22px;
+    }
+  }
+
+  @media (max-width: 560px){
+    #sobre{
+      padding-top: 110px;
+      padding-bottom: 110px !important;
+    }
+
+    #sobre .about-grid{
+      gap: 38px;
+    }
+
+    #sobre .pillars{
+      margin-top: 34px;
+      gap: 16px;
+    }
+
+    #sobre .pillar{
+      padding: 22px 20px;
+    }
+  }
+
+
+  /* ---------- CORTE NO LIMITE DOS CARDS DA SEÇÃO SOBRE ---------- */
+  /* Mantém a leitura completa dos cards, mas elimina o excesso de área vazia abaixo. */
+  #sobre{
+    position: relative !important;
+    top: auto !important;
+    padding-top: 140px;
+    padding-bottom: 70px !important;
+    overflow: visible;
+  }
+
+  #sobre .about-grid{
+    align-items: start;
+  }
+
+  #sobre .pillars{
+    margin-top: 44px;
+    margin-bottom: 0 !important;
+  }
+
+  #sobre .pillar{
+    min-height: 0;
+    height: auto;
+    overflow: visible;
+  }
+
+  @media (max-width: 900px){
+    #sobre{
+      padding-top: 120px;
+      padding-bottom: 56px !important;
+    }
+
+    #sobre .about-grid{
+      gap: 46px;
+    }
+
+    #sobre .pillars{
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    #sobre .pillar{
+      padding: 24px 22px;
+    }
+  }
+
+  @media (max-width: 560px){
+    #sobre{
+      padding-top: 100px;
+      padding-bottom: 44px !important;
+    }
+
+    #sobre .about-grid{
+      gap: 34px;
+    }
+
+    #sobre .pillars{
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    #sobre .pillar{
+      padding: 22px 20px;
+    }
+  }
+
+
+  /* ---------- CARROSSEL DE MARCAS: CENTRALIZAÇÃO + TUDOR ORIGINAL ---------- */
+  .marquee{
+    display:flex;
+    justify-content:center;
+  }
+
+  .marquee-track{
+    align-items:center;
+  }
+
+  .marquee-item{
+    width: 240px;
+    height: 120px;
+    margin: 0 18px;
+    padding: 0 24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+
+  .marquee-item img{
+    display:block;
+    width:auto;
+    height:auto;
+    max-width: 190px;
+    max-height: 82px;
+    object-fit:contain;
+    object-position:center;
+    margin:auto;
+  }
+
+  /* Tudor: não aplicar o filtro global que inverte as outras logos */
+  .marquee-item img[alt="Tudor"]{
+    filter:none !important;
+    max-width:170px;
+    max-height:88px;
+  }
+
+  .marquee-item:hover img[alt="Tudor"]{
+    filter:none !important;
+    transform:scale(1.06);
+  }
+
+  @media (max-width: 760px){
+    .marquee-item{
+      width: 190px;
+      height: 105px;
+      margin:0 10px;
+      padding:0 18px;
+    }
+
+    .marquee-item img{
+      max-width:150px;
+      max-height:68px;
+    }
+
+    .marquee-item img[alt="Tudor"]{
+      max-width:140px;
+      max-height:72px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <button class="nav-menu-btn" id="menuBtn" aria-expanded="false">
+      <span class="bars"><i></i><i></i><i></i></span> Menu
+    </button>
+    <a href="#" class="brand-mark">
+      <img class="brand-seal" src="images/temporelle-selo.png" alt="Temporelle Horlogerie de Luxe">
+    </a>
+    <a class="nav-action" href="https://wa.me/5565992993190" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.06-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.3"/><path d="M8.5 9.5c0 3.5 2.5 6 6 6l1-2-2.5-1-1 1c-1-.5-2-1.5-2.5-2.5l1-1-1-2.5z" fill="currentColor"/></svg>
+    </a>
+  </div>
+</header>
+
+<div class="nav-panel" id="navPanel">
+  <nav>
+    <a href="#sobre">A Temporelle</a>
+    <a href="#marcas">Marcas</a>
+    <a href="#processo">Como funciona</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</div>
+
+<section class="hero">
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline src="videos/hero-rolex.mp4"></video>
+  </div>
+  <div class="hero-copy">
+    <img class="hero-logo" src="images/temporelle-logo-horizontal.png" alt="Temporelle - Onde o tempo encontra a sofisticação">
+    <div class="hero-eyebrow"><span class="dash"></span> Horlogerie de Luxe · Cuiabá</div>
+    <h1>Onde o tempo<br>encontra a <em>sofisticação</em>.</h1>
+    <p class="lead">Intermediação e compra de relógios de alto padrão. Trabalhamos apenas com peças originais, de procedência verificada, para colecionadores que exigem o mesmo cuidado que colocam em cada detalhe da vida.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#contato">
+        Falar com a Temporelle
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="#110D06" stroke-width="1.4"/></svg>
+      </a>
+      <a class="btn-secondary" href="#marcas">Ver marcas que trabalhamos</a>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <div class="wrap">
+      <div class="scroll-hint"><span class="line"></span>Role para conhecer</div>
+      <div class="scroll-hint">Cuiabá — MT</div>
+    </div>
+  </div>
+</section>
+
+<section class="section-ivory" id="sobre">
+  <div class="wrap about-grid">
+    <div>
+      <div class="kicker"><span class="dash"></span>A Temporelle</div>
+      <h2>Curadoria e confiança em cada peça que passa por nossas mãos.</h2>
+    </div>
+    <div class="about-body">
+      <p class="kinetic-intro" id="kineticIntro">Temporelle nasce da junção entre o <span class="gear-slot gear-slot-left"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="9" fill="none" stroke-width="2.4"/><circle cx="20" cy="20" r="3" stroke="none"/><g stroke="none"><rect x="18" y="1" width="4" height="6" rx="1"/><rect x="18" y="33" width="4" height="6" rx="1"/><rect x="1" y="18" width="6" height="4" rx="1"/><rect x="33" y="18" width="6" height="4" rx="1"/><rect x="6" y="6" width="5" height="5" rx="1" transform="rotate(45 8.5 8.5)"/><rect x="29" y="6" width="5" height="5" rx="1" transform="rotate(45 31.5 8.5)"/><rect x="6" y="29" width="5" height="5" rx="1" transform="rotate(45 8.5 31.5)"/><rect x="29" y="29" width="5" height="5" rx="1" transform="rotate(45 31.5 31.5)"/></g></svg></span><span class="kw kw-left">tempo</span> e a <span class="gear-slot gear-slot-right"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="9" fill="none" stroke-width="2.4"/><circle cx="20" cy="20" r="3" stroke="none"/><g stroke="none"><rect x="18" y="1" width="4" height="6" rx="1"/><rect x="18" y="33" width="4" height="6" rx="1"/><rect x="1" y="18" width="6" height="4" rx="1"/><rect x="33" y="18" width="6" height="4" rx="1"/><rect x="6" y="6" width="5" height="5" rx="1" transform="rotate(45 8.5 8.5)"/><rect x="29" y="6" width="5" height="5" rx="1" transform="rotate(45 31.5 8.5)"/><rect x="6" y="29" width="5" height="5" rx="1" transform="rotate(45 8.5 31.5)"/><rect x="29" y="29" width="5" height="5" rx="1" transform="rotate(45 31.5 31.5)"/></g></svg></span><span class="kw kw-right">essência</span> do que é <span class="kw kw-merge">atemporal</span>. Inspirado na palavra latina <em style="font-style:italic; color:var(--emerald-bright);">tempus</em> e com um toque de sofisticação francesa, o nome carrega a elegância de uma marca que valoriza o que resiste à passagem dos anos: estilo, precisão e autenticidade.</p>
+      <p>Para nós, o tempo não é apenas medido — ele é vivido com classe. Cada relógio representa não só um mecanismo de precisão, mas uma história, um legado. Ao escolher a Temporelle, nossos clientes não estão apenas adquirindo um relógio de luxo: estão investindo em momentos, memórias e símbolos de identidade.</p>
+      <div class="pillars">
+        <div class="pillar" data-tilt><div class="glare"></div><h3>Somente originais</h3><p>Toda peça passa por conferência de autenticidade antes de qualquer negociação.</p></div>
+        <div class="pillar" data-tilt><div class="glare"></div><h3>Intermediação de confiança</h3><p>Compramos, vendemos e conectamos colecionadores com transparência total.</p></div>
+        <div class="pillar" data-tilt><div class="glare"></div><h3>Atendimento próximo</h3><p>Conversa direta, sem burocracia, do primeiro contato à entrega da peça.</p></div>
+        <div class="pillar" data-tilt><div class="glare"></div><h3>Discrição</h3><p>Negociações conduzidas com a privacidade que o setor de alto padrão exige.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="interlude">
+  <div class="interlude-bg">
+    <video autoplay muted loop playsinline src="videos/gears-interlude.mp4"></video>
+  </div>
+  <div class="wrap interlude-inner">
+    <p class="quote">E se o seu relógio pudesse falar... o que ele diria?</p>
+    <p class="sub">Cada peça carrega mais do que horas — carrega histórias. Da Lua ao seu pulso, da precisão à elegância. <strong>Na Temporelle, o tempo ganha voz, alma e estilo.</strong></p>
+  </div>
+</section>
+
+<section class="section-dark" id="marcas">
+  <div class="wrap brands-intro">
+    <div class="kicker"><span class="dash"></span>Marcas</div>
+    <h2>As casas que representamos</h2>
+    <p>Trabalhamos com as manufaturas mais respeitadas da relojoaria mundial, sempre com peças originais e procedência verificada.</p>
+  </div>
+
+  <div class="brand-panel brand-panel--bg" style="--panel-bg:url('images/sunset-streaks.png')">
+    <div class="brand-visual">
+      <img class="brand-photo brand-photo--watch" src="images/rolex-daytona.png" alt="Rolex Cosmograph Daytona em aço e ouro amarelo">
+    </div>
+    <div class="brand-copy brand-copy--shift">
+      <div class="num">01</div>
+      <img class="name-logo" src="images/rolex-crown-logo.png" alt="Rolex">
+      <p class="tag">Oyster Perpetual · Datejust · Submariner · GMT-Master II</p>
+    </div>
+  </div>
+
+  <div class="brand-panel brand-panel--bg" style="--panel-bg:url('images/concrete-arch.png')">
+    <div class="brand-visual">
+      <img class="brand-photo brand-photo--watch" src="images/patek-watch.png" alt="Patek Philippe Nautilus em aço com mostrador azul">
+    </div>
+    <div class="brand-copy brand-copy--shift">
+      <div class="num">02</div>
+      <img class="name-logo name-logo--wide" src="images/patek-logo.png" alt="Patek Philippe">
+      <p class="tag">Nautilus · Calatrava · Aquanaut</p>
+    </div>
+  </div>
+
+  <div class="brand-panel brand-panel--bg" style="--panel-bg:url('images/moon-surface.jpg')">
+    <div class="brand-visual">
+      <img class="brand-photo brand-photo--watch" src="images/omega-watch.png" alt="Omega Speedmaster Moonwatch Professional">
+    </div>
+    <div class="brand-copy brand-copy--shift">
+      <div class="num">03</div>
+      <img class="name-logo" src="images/omega-logo.png" alt="Omega">
+      <p class="tag">Speedmaster · Seamaster · Constellation</p>
+    </div>
+  </div>
+
+  <div class="brand-panel brand-panel--bg" style="--panel-bg:url('images/hublot-bg.jpg')">
+    <div class="brand-visual">
+      <img class="brand-photo brand-photo--watch" src="images/hublot-watch.png" alt="Hublot Classic Fusion Chronograph Titanium Racing Grey">
+    </div>
+    <div class="brand-copy brand-copy--shift">
+      <div class="num">04</div>
+      <img class="name-logo" src="images/logo-hublot.png" alt="Hublot" style="filter: invert(1);">
+      <p class="tag">Classic Fusion · Big Bang · Spirit of Big Bang</p>
+    </div>
+  </div>
+
+  <div class="brand-panel brand-panel--bg" style="--panel-bg:url('images/cartier-bg.jpg')">
+    <div class="brand-visual">
+      <img class="brand-photo brand-photo--watch" src="images/cartier-watch.png" alt="Cartier Santos em aço com mostrador prateado">
+    </div>
+    <div class="brand-copy brand-copy--shift">
+      <div class="num">05</div>
+      <img class="name-logo" src="images/cartier-seeklogo.png" alt="Cartier" style="filter: invert(1);">
+      <p class="tag">Santos · Tank · Ballon Bleu · Panthère</p>
+    </div>
+  </div>
+
+  <div class="brand-panel brand-panel--bg" style="--panel-bg:url('images/ocean-surface.jpg')">
+    <div class="brand-visual">
+      <img class="brand-photo brand-photo--watch" src="images/tag-watch.png" alt="TAG Heuer Aquaracer com mostrador azul">
+    </div>
+    <div class="brand-copy brand-copy--shift">
+      <div class="num">06</div>
+      <img class="name-logo" src="images/tag-logo.png" alt="TAG Heuer">
+      <p class="tag">Carrera · Monaco · Aquaracer</p>
+    </div>
+  </div>
+
+  <div class="brand-panel brand-panel--marquee">
+    <div class="brand-copy">
+      <div class="num">07</div>
+      <div class="name">IWC · Bvlgari · Panerai · Breitling · Tudor · Longines · Hamilton</div>
+      <p class="tag">E outras manufaturas de alto padrão, sob consulta.</p>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        <div class="marquee-item"><img src="images/logo-iwc.png" alt="IWC Schaffhausen"></div>
+        <div class="marquee-item"><img src="images/logo-bvlgari.png" alt="Bvlgari"></div>
+        <div class="marquee-item"><img src="images/logo-panerai.png" alt="Panerai"></div>
+        <div class="marquee-item"><img src="images/logo-breitling.png" alt="Breitling"></div>
+        <div class="marquee-item"><img src="images/Tudor_Watch_Logo_1.png" alt="Tudor"></div>
+        <div class="marquee-item"><img src="images/longines-seeklogo.png" alt="Longines"></div>
+        <div class="marquee-item"><img class="logo-light" src="images/Hamilton_Watch_Logo_1.png" alt="Hamilton"></div>
+        <div class="marquee-item"><img src="images/logo-iwc.png" alt="IWC Schaffhausen"></div>
+        <div class="marquee-item"><img src="images/logo-bvlgari.png" alt="Bvlgari"></div>
+        <div class="marquee-item"><img src="images/logo-panerai.png" alt="Panerai"></div>
+        <div class="marquee-item"><img src="images/logo-breitling.png" alt="Breitling"></div>
+        <div class="marquee-item"><img src="images/Tudor_Watch_Logo_1.png" alt="Tudor"></div>
+        <div class="marquee-item"><img src="images/longines-seeklogo.png" alt="Longines"></div>
+        <div class="marquee-item"><img class="logo-light" src="images/Hamilton_Watch_Logo_1.png" alt="Hamilton"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-ivory" id="processo" style="padding: 100px 0;">
+  <div class="wrap">
+    <div class="kicker"><span class="dash"></span>Como funciona</div>
+    <h2 style="font-size: clamp(2rem,3.4vw,2.8rem); max-width: 18ch;">Do primeiro contato até o relógio no seu pulso.</h2>
+    <div class="timeline" id="timeline">
+      <div class="timeline-line"><div class="timeline-line-fill"></div></div>
+      <div class="timeline-row">
+        <div class="timeline-col">
+          <div class="timeline-dot"></div>
+          <span class="timeline-badge">Etapa 01</span>
+          <h3>Contato inicial</h3>
+          <p>Você conta qual peça procura — ou deseja vender — e entendemos modelo, estado e orçamento.</p>
+        </div>
+        <div class="timeline-col">
+          <div class="timeline-dot"></div>
+          <span class="timeline-badge">Etapa 02</span>
+          <h3>Curadoria</h3>
+          <p>Verificamos autenticidade, numeração, certificados e estado de conservação da peça.</p>
+        </div>
+        <div class="timeline-col">
+          <div class="timeline-dot"></div>
+          <span class="timeline-badge">Etapa 03</span>
+          <h3>Negociação</h3>
+          <p>Condições claras de valor, forma de pagamento e prazos — sem pressa e sem letras miúdas.</p>
+        </div>
+        <div class="timeline-col">
+          <div class="timeline-dot"></div>
+          <span class="timeline-badge">Etapa 04</span>
+          <h3>Entrega</h3>
+          <p>Entrega segura e pós-venda à disposição para qualquer necessidade futura com a peça.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato" aria-label="Contato Temporelle">
+  <div class="cta-curtain">
+    <h2>Pronto para investir em seu <em>sonho?</em></h2>
+  </div>
+
+  <div class="cta-reveal-wrapper" id="ctaReveal">
+    <div class="cta-reveal">
+      <div class="cta-glow"></div>
+      <div class="cta-reveal-inner">
+        <h2>Entre em contato conosco.</h2>
+        <a class="cta-whatsapp" href="https://wa.me/5565992993190" target="_blank" rel="noopener" data-magnetic aria-label="Entre em contato com a Temporelle pelo WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.06-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.35"/>
+            <path d="M8.5 9.5c0 3.5 2.5 6 6 6l1-2-2.5-1-1 1c-1-.5-2-1.5-2.5-2.5l1-1-1-2.5z" fill="currentColor"/>
+          </svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <a href="#" class="brand-mark">
+        <img class="brand-seal" src="images/temporelle-selo.png" alt="Temporelle Horlogerie de Luxe">
+      </a>
+      <div class="foot-links">
+        <a href="#sobre">A Temporelle</a>
+        <a href="#marcas">Marcas</a>
+        <a href="#processo">Como funciona</a>
+        <a href="#contato">Contato</a>
+      </div>
+    </div>
+    <div class="foot-note">© Temporelle Horlogerie de Luxe — Cuiabá, MT. Todos os direitos reservados. Conteúdo institucional, sem vínculo oficial com as manufaturas citadas.</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var btn = document.getElementById('menuBtn');
+    var panel = document.getElementById('navPanel');
+    function close(){ panel.classList.remove('is-open'); btn.setAttribute('aria-expanded','false'); }
+    btn.addEventListener('click', function(){
+      var open = panel.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    panel.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+  })();
+
+  (function(){
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (reduceMotion || !canHover) return;
+
+    var max = 8;
+    document.querySelectorAll('[data-tilt]').forEach(function(card){
+      var glare = card.querySelector('.glare');
+
+      card.addEventListener('mousemove', function(e){
+        var rect = card.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width;
+        var py = (e.clientY - rect.top) / rect.height;
+        var rx = (0.5 - py) * max;
+        var ry = (px - 0.5) * max;
+        card.style.transform = 'perspective(900px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+        if (glare) glare.style.background = 'radial-gradient(circle at ' + (px*100).toFixed(1) + '% ' + (py*100).toFixed(1) + '%, rgba(183,142,74,0.28), transparent 60%)';
+      });
+
+      card.addEventListener('mouseleave', function(){
+        card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+  })();
+
+  (function(){
+    var timeline = document.getElementById('timeline');
+    if (!timeline || !('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          timeline.classList.add('is-visible');
+          obs.unobserve(timeline);
+        }
+      });
+    }, { threshold: 0.4 });
+    obs.observe(timeline);
+  })();
+
+  (function(){
+    var el = document.getElementById('kineticIntro');
+    if (!el || !('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          el.classList.add('is-visible');
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.6 });
+    obs.observe(el);
+  })();
+
+  (function(){
+    var reveal = document.getElementById('ctaReveal');
+    if (!reveal || !('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        reveal.classList.toggle('is-visible', entry.isIntersecting);
+      });
+    }, { threshold: 0.2 });
+    obs.observe(reveal);
+  })();
+
+  (function(){
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (reduceMotion || !canHover) return;
+
+    document.querySelectorAll('[data-magnetic]').forEach(function(el){
+      el.addEventListener('mousemove', function(e){
+        var r = el.getBoundingClientRect();
+        var x = e.clientX - r.left - r.width / 2;
+        var y = e.clientY - r.top - r.height / 2;
+        el.style.transform = 'translate(' + (x * .16).toFixed(1) + 'px,' + (y * .22).toFixed(1) + 'px) scale(1.03)';
+      });
+      el.addEventListener('mouseleave', function(){
+        el.style.transition = 'transform .65s cubic-bezier(.16,1,.3,1), border-color .3s ease, background .3s ease, box-shadow .3s ease';
+        el.style.transform = 'translate(0,0) scale(1)';
+        setTimeout(function(){ el.style.transition = ''; }, 700);
+      });
+    });
+  })();
+
+  (function(){
+    var layers = Array.prototype.slice.call(document.querySelectorAll('.hero-bg, .interlude-bg'));
+    if (!layers.length) return;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    var ticking = false;
+    function update(){
+      ticking = false;
+      var vh = window.innerHeight;
+      layers.forEach(function(el){
+        var rect = el.getBoundingClientRect();
+        var center = rect.top + rect.height / 2;
+        var offset = (center - vh / 2) * 0.12;
+        el.style.setProperty('--py', offset.toFixed(1) + 'px');
+      });
+    }
+    function onScroll(){
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>
+
+</body>
+</html>
